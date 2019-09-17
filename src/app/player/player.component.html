@@ -1,0 +1,8 @@
+<div
+  class="board"
+  [ngStyle]="{'grid-template-rows': 'repeat('+board.lines+', 1fr)'}">
+  <div
+    class="player"
+    [ngClass]="'playerStyle-'+playerStyle"
+    [ngStyle]="{'grid-row': player.getLine()}"></div>
+</div>
