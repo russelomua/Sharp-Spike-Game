@@ -4,6 +4,8 @@ import { Subscription, fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { PlayerService } from '../services/player.service';
 import { Board } from '../class/board';
+import { GameService } from '../services/game.service';
+import { wrapGrid } from 'animate-css-grid';
 
 @Component({
   selector: 'app-player',
@@ -12,7 +14,11 @@ import { Board } from '../class/board';
 })
 export class PlayerComponent implements OnInit, OnDestroy {
 
-  constructor(private player: PlayerService, public board: Board) { }
+  constructor(
+    public board: Board,
+    public player: PlayerService,
+    public game: GameService,
+  ) { }
 
   playerStyle: string = 'default';
 
@@ -37,6 +43,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
           break;
       }
     });
+
+    const grid: HTMLElement = document.querySelector('.spikesHolder');
+    wrapGrid(grid, {duration : 500, easing: 'linear'});
   }
 
   ngOnDestroy() {

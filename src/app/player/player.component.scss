@@ -1,17 +1,37 @@
 .board {
-    display: grid;
-    grid-gap: 5px;
     border: 5px dashed gray;
     padding: 20px;
-}
-
-.player {
-    border: 1px solid darkred;
-    height: 15px;
-    width: 15px;
+    height: 300px;
+    width: 480px;
     position: relative;
 }
 
-.playerStyle-default {
-    background-color: coral;
+.playerHolder {
+    display: grid;
+    grid-gap: 5px;
+    height: inherit;
+    width: inherit;
+    position: absolute;
+}
+
+.spikesHolder {
+    display: grid;
+    grid-gap: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.player {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-image: url(/assets/ninja.svg);
+    background-repeat: no-repeat;
+}
+
+.spike {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-image: url(/assets/arrow.svg);
 }

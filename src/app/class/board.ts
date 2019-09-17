@@ -7,5 +7,6 @@ import {
 })
 
 export class Board {
-  public lines: number = 10;
+  public lines: number = 5;
+  public cols: number = 8;
 }
