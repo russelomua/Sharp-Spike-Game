@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { PlayerPosition } from '../class/player-position';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { PlayerService } from '../services/player.service';
@@ -44,8 +43,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
       }
     });
 
-    const grid: HTMLElement = document.querySelector('.spikesHolder');
-    wrapGrid(grid, {duration : 500, easing: 'linear'});
+    // const grid: HTMLElement = document.querySelector('.spikesHolder');
+    // wrapGrid(grid, {duration : 500, easing: 'linear'});
   }
 
   ngOnDestroy() {

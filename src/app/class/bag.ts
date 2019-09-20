@@ -1,25 +1,30 @@
-import {
-  Injectable
-} from '@angular/core';
-import {
-  Spike
-} from './spike';
-import {
-  Board
-} from './board';
+import { Injectable } from '@angular/core';
+import { Spike } from './spike';
+import { BagFactory } from './bag-factory';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class Bag {
-  private bag: Spike[] = [];
+export class Bag<T> {
+  private bag: T[] = [];
+  private type: any;
+  private size: any;
+  private args: any[];
 
-  constructor(private board: Board) {}
+  constructor(type: any, size: number, ...args: any) {
+    this.type = type;
+    this.size = size;
+    this.args = args;
+  }
+
+  private factory(type: new (...args: any) => T, ...args: any): T {
+    return new type(...args);
+  }
 
   private fillBag() {
-    for (let i = 1; i <= this.board.lines; i++) {
-      this.bag.push(new Spike(this.board, i));
+    for (let i = 1; i <= this.size; i++) {
+      this.bag.push(this.factory(this.type, i, ...this.args));
     }
   }
 

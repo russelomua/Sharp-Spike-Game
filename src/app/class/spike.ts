@@ -1,8 +1,6 @@
-import { Board } from './board';
-
 export class Spike {
-  constructor(public board: Board, line: number) {
-    this.column = board.cols;
+  constructor(line: number, column: number) {
+    this.column = column;
     this.line = line;
   }
   public line: number;
