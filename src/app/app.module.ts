@@ -3,16 +3,21 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PlayerComponent } from './player/player.component';
+import { GameComponent } from './game/game.component';
+import { FormsModule } from '@angular/forms';
+import { NgxScaleModule } from 'ngx-scale';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerComponent
+    GameComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    NgxScaleModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,7 +1,18 @@
-.container {
-    // margin: 50px;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.app-container {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: #2980b9;
+
+  border-radius: 20px;
+  box-shadow: 0 0 100px -10px #2980b9;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+app-game {
+  display: block;
 }

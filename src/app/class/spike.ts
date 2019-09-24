@@ -16,4 +16,8 @@ export class Spike {
   public isZeroPosition() {
     return this.column === 1;
   }
+
+  public getCost() {
+    return Math.round(Math.random() * 25);
+  }
 }

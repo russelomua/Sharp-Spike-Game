@@ -1,0 +1,123 @@
+.container {
+  padding-bottom: 62.5%; // 56.25%; 16:9
+  height: 0;
+  position: relative;
+  .inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    max-height: 100vh;
+  }
+}
+
+.boardHolder {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  padding: 50px;
+  box-sizing: border-box;
+
+  .boardInner {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .board {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    > div {
+      box-sizing: border-box;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.playerHolder {
+  display: grid;
+  grid-gap: 5px;
+  height: inherit;
+  width: inherit;
+  position: absolute;
+  z-index: 101;
+}
+
+.spikesHolder {
+  display: grid;
+  grid-gap: 5px;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
+
+.player {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-image: url(~src/assets/ninja.svg);
+  background-repeat: no-repeat;
+}
+
+.spike {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-image: url(~src/assets/arrow.svg);
+  background-repeat: no-repeat;
+}
+
+
+.score {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 24px;
+  color: #ffffff;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.startGame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & > button {
+    display: block;
+    background-color: #2ecc71;
+    border: 5px solid #27ae60;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+
+    color: #fff;
+    font-size: 50px;
+
+    text-transform: uppercase;
+
+    &:hover, :focus {
+      background-color: #27ae60;
+      border-color: #2ecc71;
+    }
+  }
+
+  & > select {
+    display: block;
+    width: 100%;
+    background-color: #2ecc71;
+    border: 5px solid #27ae60;
+
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+  }
+}

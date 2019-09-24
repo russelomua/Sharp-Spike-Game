@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Spike } from '../class/spike';
 import { Bag } from '../class/bag';
-import { interval } from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 import { Board } from '../class/board';
 import { Difficult } from '../class/dificult';
+import {PlayerService} from './player.service';
+import {Score} from '../class/score';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  public spikes: Spike[] = [];
+  public gameRun: boolean = false;
+  public difficult: string;
+  public score: Score;
+
+  public spikes: Set<Spike>;
+
   private spikesBag: Bag<Spike>;
   private difficultBag: Bag<Difficult>;
-  public spikesPerColumn = 1;
 
-  constructor(public board: Board) {
-    this.start();
-    const difficult = 'normal';
-    this.spikesBag = new Bag<Spike>(Spike, this.board.lines, this.board.cols);
-    this.difficultBag = new Bag<Difficult>(
-      Difficult,
-      this.board.difficultTemplates[difficult].length,
-      this.board.difficultTemplates[difficult]
-    );
-  }
+  private gameSubscription: Subscription;
+
+  constructor(
+    public board: Board,
+    public player: PlayerService,
+  ) {}
 
   getFromBag() {
     const difficult = this.difficultBag.getRandom();
@@ -33,7 +35,7 @@ export class GameService {
     }
 
     for (let i = 0; i < difficult.number; i++) {
-      this.spikes.push(this.spikesBag.getRandom());
+      this.spikes.add(this.spikesBag.getRandom());
     }
   }
 
@@ -44,25 +46,66 @@ export class GameService {
   }
 
   removeOut() {
-    const toRemove = this.spikes.filter(spike => spike.isZeroPosition());
-
-    toRemove.forEach(item => {
-      const index = this.spikes.indexOf(item);
-      
-      this.spikes.splice(index, 1);
+    this.spikes.forEach(spike => {
+      if (spike.isZeroPosition()) {
+        this.spikes.delete(spike);
+        this.score.increase(spike.getCost());
+      }
     });
   }
 
+  endGameCheck() {
+    for (const spike of this.spikes.values()) {
+      if (spike.isZeroPosition() && this.player.getLine() === spike.line) {
+        this.stop();
+        break;
+      }
+    }
+  }
+
   step() {
+    this.endGameCheck();
     this.removeOut();
     this.moveCurrent();
     this.getFromBag();
   }
 
-  start() {
-    interval(500).subscribe(_ => {
-      // console.log(this.difficultBag);
+  init(difficult = 'easy') {
+    this.difficult = difficult;
+    this.spikesBag = new Bag<Spike>(
+      Spike,
+      this.board.lines,
+      this.board.cols
+    );
+
+    const presetTemplate = this.board.getPresetTemplate(this.difficult);
+
+    this.difficultBag = new Bag<Difficult>(
+      Difficult,
+      presetTemplate.length,
+      presetTemplate
+    );
+
+    this.score = new Score();
+    this.spikes = new Set();
+  }
+
+  start(difficult) {
+    this.init(difficult);
+    this.player.start();
+    this.gameRun = true;
+
+    const speed = this.board.getPresetSpeed(difficult);
+
+    this.gameSubscription = interval(speed).subscribe(_ => {
       this.step();
     });
+  }
+
+  stop() {
+    this.gameRun = false;
+    this.player.stop();
+    this.gameSubscription.unsubscribe();
+    this.spikes.clear();
   }
 }

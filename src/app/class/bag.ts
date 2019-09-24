@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Spike } from './spike';
-import { BagFactory } from './bag-factory';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +6,9 @@ import { BagFactory } from './bag-factory';
 
 export class Bag<T> {
   private bag: T[] = [];
-  private type: any;
-  private size: any;
-  private args: any[];
+  private readonly type: any;
+  private readonly size: any;
+  private readonly args: any[];
 
   constructor(type: any, size: number, ...args: any) {
     this.type = type;
