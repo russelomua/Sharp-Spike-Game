@@ -1,9 +1,3 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-
 export class Bag<T> {
   private bag: T[] = [];
   private readonly type: any;
